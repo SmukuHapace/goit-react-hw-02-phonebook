@@ -19,9 +19,16 @@ export class App extends Component {
 
   handleAddContact = ({ name, number }) => {
     const newContact = { id: nanoid(), name: name, number: number };
-    this.setState(e => ({
-      contacts: [...e.contacts, newContact],
-    }));
+    const isContactExist = this.state.contacts.find(
+      contact => contact.name === newContact.name
+    );
+    if (isContactExist) {
+      alert(`${newContact.name} is already in contacts`);
+    } else {
+      this.setState(e => ({
+        contacts: [...e.contacts, newContact],
+      }));
+    }
   };
 
   handleFilterChange = e => {
